@@ -145,7 +145,7 @@
     "type": "git",
     "url": "git+https://github.com/haiyiyun/goboss-front.git"
   },
-  "license": "Apache 2.0",
+  "license": "Apache",
   "bugs": {
     "url": "https://github.com/haiyiyun/goboss-front/issues"
   },
