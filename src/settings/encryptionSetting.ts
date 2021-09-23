@@ -8,5 +8,6 @@ export const cacheCipher = {
   key: 'kfj@haiyiyun#$%F',
   iv: '#$DFOSS.HaiYiYun',
 };
+
 // Whether the system cache is encrypted using aes
 export const enableStorageEncryption = !isDevMode();
