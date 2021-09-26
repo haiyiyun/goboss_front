@@ -32,6 +32,7 @@
         showTableSetting: true,
         useSearchForm: true,
       });
+
       function handleReloadCurrent() {
         reload();
       }
