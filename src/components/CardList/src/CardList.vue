@@ -3,6 +3,7 @@
     <div class="p-4 mb-2 bg-white">
       <BasicForm @register="registerForm" />
     </div>
+    {{ sliderProp.width }}
     <div class="p-2 bg-white">
       <List
         :grid="{ gutter: 5, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: grid }"
@@ -38,7 +39,7 @@
                   <Image :src="item.imgs[0]" />
                 </div>
               </template>
-              <template #actions>
+              <template class="ant-card-actions" #actions>
                 <!--              <SettingOutlined key="setting" />-->
                 <EditOutlined key="edit" />
                 <Dropdown

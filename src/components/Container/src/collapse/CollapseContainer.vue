@@ -1,6 +1,6 @@
 <template>
   <div :class="prefixCls">
-    <CollapseHeader v-bind="props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
+    <CollapseHeader v-bind="$props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
       <template #title>
         <slot name="title"></slot>
       </template>
@@ -25,7 +25,6 @@
 <script lang="ts" setup>
   import type { PropType } from 'vue';
   import { ref } from 'vue';
-  import { isNil } from 'lodash-es';
   // component
   import { Skeleton } from 'ant-design-vue';
   import { CollapseTransition } from '/@/components/Transition';
@@ -67,17 +66,13 @@
   /**
    * @description: Handling development events
    */
-  function handleExpand(val: boolean) {
-    show.value = isNil(val) ? !show.value : val;
+  function handleExpand() {
+    show.value = !show.value;
     if (props.triggerWindowResize) {
       // 200 milliseconds here is because the expansion has animation,
       useTimeoutFn(triggerWindowResize, 200);
     }
   }
-
-  defineExpose({
-    handleExpand,
-  });
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-collapse-container';

@@ -4,13 +4,13 @@ import { resultError, resultSuccess, getRequestToken, requestParams } from '../_
 export function createFakeUserList() {
   return [
     {
-      userId: '1',
+      userId: '61024a613106cf921bf37c85',
       username: 'vben',
       realName: 'Vben Admin',
-      avatar: '',
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
       desc: 'manager',
       password: '123456',
-      token: 'fakeToken1',
+      token: `eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MTAyNGE2MTMxMDZjZjkyMWJmMzdjODUiLCJleHAiOjE2Mjc2MjcyMjMsImp0aSI6IjYxMDI0ZDU3MzEwNmNmOTIxYmYzN2M4ZCIsInN1YiI6IjYxMDI0YTYxMzEwNmNmOTIxYmYzN2M4NSIsInRva2VuX3R5cGUiOiJzZWxmIn0.IPl4z4E5WXbGu-ejjiL9xbfWnwgWkPIbz4MYUjdXyb6xWhnlvIFumbgcVRXPMWKQCBeDJmQfEcpp6J6u5t9kPg`,
       homePath: '/dashboard/analysis',
       roles: [
         {
@@ -24,7 +24,7 @@ export function createFakeUserList() {
       username: 'test',
       password: '123456',
       realName: 'test user',
-      avatar: '',
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
       desc: 'tester',
       token: 'fakeToken2',
       homePath: '/dashboard/workbench',
@@ -45,42 +45,42 @@ const fakeCodeList: any = {
 };
 export default [
   // mock user login
-  {
-    url: '/basic-api/login',
-    timeout: 200,
-    method: 'post',
-    response: ({ body }) => {
-      const { username, password } = body;
-      const checkUser = createFakeUserList().find(
-        (item) => item.username === username && password === item.password,
-      );
-      if (!checkUser) {
-        return resultError('Incorrect account or password！');
-      }
-      const { userId, username: _username, token, realName, desc, roles } = checkUser;
-      return resultSuccess({
-        roles,
-        userId,
-        username: _username,
-        token,
-        realName,
-        desc,
-      });
-    },
-  },
-  {
-    url: '/basic-api/getUserInfo',
-    method: 'get',
-    response: (request: requestParams) => {
-      const token = getRequestToken(request);
-      if (!token) return resultError('Invalid token');
-      const checkUser = createFakeUserList().find((item) => item.token === token);
-      if (!checkUser) {
-        return resultError('The corresponding user information was not obtained!');
-      }
-      return resultSuccess(checkUser);
-    },
-  },
+  // {
+  //   url: '/basic-api/login',
+  //   timeout: 200,
+  //   method: 'post',
+  //   response: ({ body }) => {
+  //     const { username, password } = body;
+  //     const checkUser = createFakeUserList().find(
+  //       (item) => item.username === username && password === item.password
+  //     );
+  //     if (!checkUser) {
+  //       return resultError('Incorrect account or password！');
+  //     }
+  //     const { userId, username: _username, token, realName, desc, roles } = checkUser;
+  //     return resultSuccess({
+  //       roles,
+  //       userId,
+  //       username: _username,
+  //       token,
+  //       realName,
+  //       desc,
+  //     });
+  //   },
+  // },
+  // {
+  //   url: '/basic-api/getUserInfo',
+  //   method: 'get',
+  //   response: (request: requestParams) => {
+  //     const token = getRequestToken(request);
+  //     if (!token) return resultError('Invalid token');
+  //     const checkUser = createFakeUserList().find((item) => item.token === token);
+  //     if (!checkUser) {
+  //       return resultError('The corresponding user information was not obtained!');
+  //     }
+  //     return resultSuccess(checkUser);
+  //   },
+  // },
   {
     url: '/basic-api/getPermCode',
     timeout: 200,
@@ -97,26 +97,18 @@ export default [
       return resultSuccess(codeList);
     },
   },
-  {
-    url: '/basic-api/logout',
-    timeout: 200,
-    method: 'get',
-    response: (request: requestParams) => {
-      const token = getRequestToken(request);
-      if (!token) return resultError('Invalid token');
-      const checkUser = createFakeUserList().find((item) => item.token === token);
-      if (!checkUser) {
-        return resultError('Invalid token!');
-      }
-      return resultSuccess(undefined, { message: 'Token has been destroyed' });
-    },
-  },
-  {
-    url: '/basic-api/testRetry',
-    statusCode: 405,
-    method: 'get',
-    response: () => {
-      return resultError('Error!');
-    },
-  },
+  // {
+  //   url: '/basic-api/logout',
+  //   timeout: 200,
+  //   method: 'get',
+  //   response: (request: requestParams) => {
+  //     const token = getRequestToken(request);
+  //     if (!token) return resultError('Invalid token');
+  //     const checkUser = createFakeUserList().find((item) => item.token === token);
+  //     if (!checkUser) {
+  //       return resultError('Invalid token!');
+  //     }
+  //     return resultSuccess(undefined, { message: 'Token has been destroyed' });
+  //   },
+  // },
 ] as MockMethod[];

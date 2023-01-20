@@ -3,6 +3,7 @@ node_modules
 dist
 .npmrc
 .cache
+yarn.lock
 
 tests/server/static
 tests/server/static/upload
@@ -27,8 +28,3 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-package-lock.json
-pnpm-lock.yaml
-
-.history

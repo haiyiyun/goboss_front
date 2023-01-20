@@ -10,7 +10,6 @@
       <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
-          :isAdvanced="fieldsIsAdvancedMap[schema.field]"
           :tableAction="tableAction"
           :formActionType="formActionType"
           :schema="schema"
@@ -59,18 +58,15 @@
   import { createFormContext } from './hooks/useFormContext';
   import { useAutoFocus } from './hooks/useAutoFocus';
   import { useModalContext } from '/@/components/Modal';
-  import { useDebounceFn } from '@vueuse/core';
 
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { cloneDeep } from 'lodash-es';
-  import { isFunction, isArray } from '/@/utils/is';
 
   export default defineComponent({
     name: 'BasicForm',
     components: { FormItem, Form, Row, FormAction },
     props: basicProps,
-    emits: ['advanced-change', 'reset', 'submit', 'register', 'field-value-change'],
+    emits: ['advanced-change', 'reset', 'submit', 'register'],
     setup(props, { emit, attrs }) {
       const formModel = reactive<Recordable>({});
       const modalFn = useModalContext();
@@ -120,13 +116,13 @@
       const getSchema = computed((): FormSchema[] => {
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
         for (const schema of schemas) {
-          const { defaultValue, component, isHandleDateDefaultValue = true } = schema;
+          const { defaultValue, component } = schema;
           // handle date type
-          if (isHandleDateDefaultValue && defaultValue && dateItemType.includes(component)) {
+          if (defaultValue && dateItemType.includes(component)) {
             if (!Array.isArray(defaultValue)) {
               schema.defaultValue = dateUtil(defaultValue);
             } else {
-              const def: any[] = [];
+              const def: moment.Moment[] = [];
               defaultValue.forEach((item) => {
                 def.push(dateUtil(item));
               });
@@ -135,15 +131,13 @@
           }
         }
         if (unref(getProps).showAdvancedButton) {
-          return cloneDeep(
-            schemas.filter((schema) => schema.component !== 'Divider') as FormSchema[],
-          );
+          return schemas.filter((schema) => schema.component !== 'Divider') as FormSchema[];
         } else {
-          return cloneDeep(schemas as FormSchema[]);
+          return schemas as FormSchema[];
         }
       });
 
-      const { handleToggleAdvanced, fieldsIsAdvancedMap } = useAdvanced({
+      const { handleToggleAdvanced } = useAdvanced({
         advanceState,
         emit,
         getProps,
@@ -176,7 +170,7 @@
         updateSchema,
         resetSchema,
         appendSchemaByField,
-        removeSchemaByField,
+        removeSchemaByFiled,
         resetFields,
         scrollToField,
       } = useFormEvents({
@@ -231,28 +225,16 @@
         },
       );
 
-      watch(
-        () => formModel,
-        useDebounceFn(() => {
-          unref(getProps).submitOnChange && handleSubmit();
-        }, 300),
-        { deep: true },
-      );
-
       async function setProps(formProps: Partial<FormProps>): Promise<void> {
         propsRef.value = deepMerge(unref(propsRef) || {}, formProps);
       }
 
-      function setFormModel(key: string, value: any, schema: FormSchema) {
+      function setFormModel(key: string, value: any) {
         formModel[key] = value;
         const { validateTrigger } = unref(getBindValue);
-        if (isFunction(schema.dynamicRules) || isArray(schema.rules)) {
-          return;
-        }
         if (!validateTrigger || validateTrigger === 'change') {
           validateFields([key]).catch((_) => {});
         }
-        emit('field-value-change', key, value);
       }
 
       function handleEnterPress(e: KeyboardEvent) {
@@ -273,7 +255,7 @@
         updateSchema,
         resetSchema,
         setProps,
-        removeSchemaByField,
+        removeSchemaByFiled,
         appendSchemaByField,
         clearValidate,
         validateFields,
@@ -304,7 +286,6 @@
         getFormActionBindProps: computed(
           (): Recordable => ({ ...getProps.value, ...advanceState }),
         ),
-        fieldsIsAdvancedMap,
         ...formActionType,
       };
     },

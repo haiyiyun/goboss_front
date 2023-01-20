@@ -2,9 +2,9 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "chrome",
+      "name": "Launch Edge",
       "request": "launch",
-      "name": "Launch Chrome",
+      "type": "pwa-msedge",
       "url": "http://localhost:3100",
       "webRoot": "${workspaceFolder}/src",
       "sourceMaps": true
