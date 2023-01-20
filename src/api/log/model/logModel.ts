@@ -1,7 +1,7 @@
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 import { FormProps } from '/@/components/Table';
 import { BasicColumn } from '/@/components/Table/src/types/table';
-import { formatToDateTime } from '/@/utils/dateUtil';
+import { dateUtil, formatToDateTime } from '/@/utils/dateUtil';
 
 export interface GetLogModel {
   _id: string;
@@ -130,6 +130,16 @@ export function getColumns(): BasicColumn[] {
       dataIndex: 'path',
       key: 'popover',
       width: 100,
+    },
+    {
+      title: '耗时',
+      dataIndex: 'timecost',
+      width: 100,
+      customRender: ({ record }) => {
+        const ct = dateUtil(record.create_time);
+        const ut = dateUtil(record.update_time);
+        return ut.diff(ct) + 'ms';
+      },
     },
     {
       title: 'Query',
