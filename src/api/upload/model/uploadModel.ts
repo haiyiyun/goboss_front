@@ -122,19 +122,19 @@ export function getColumns(): BasicColumn[] {
     {
       title: 'ContentType',
       dataIndex: 'content_type',
-      slots: { customRender: 'popover' },
+      key: 'popover',
       width: 100,
     },
     {
       title: '原始文件名',
       dataIndex: 'original_file_name',
-      slots: { customRender: 'popover' },
+      key: 'popover',
       width: 100,
     },
     {
       title: '文件名',
       dataIndex: 'file_name',
-      slots: { customRender: 'popover' },
+      key: 'popover',
       width: 100,
     },
     {
@@ -145,13 +145,13 @@ export function getColumns(): BasicColumn[] {
     {
       title: 'Path',
       dataIndex: 'path',
-      slots: { customRender: 'popover' },
+      key: 'popover',
       width: 100,
     },
     {
       title: 'URL',
       dataIndex: 'url',
-      slots: { customRender: 'popover' },
+      key: 'popover',
       width: 100,
     },
     {

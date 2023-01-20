@@ -23,9 +23,9 @@ export const roleList = {
 };
 
 export const roleCreate = {
-  premission: 'PUT_' + Api.ROLE_CREATE,
+  premission: 'POST_' + Api.ROLE_CREATE,
   api: (params: { name: string; scope: number; enable: boolean; applications: any }) =>
-    defHttp.put<string>({
+    defHttp.post<string>({
       url: Api.ROLE_CREATE,
       params,
     }),

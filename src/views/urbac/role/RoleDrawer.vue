@@ -13,6 +13,7 @@
           v-model:value="model[field]"
           :options="scopeSelectOptions"
           :allowClear="false"
+          :style="{ width: '80px' }"
           @change="scopeChange"
         />
       </template>
@@ -22,12 +23,13 @@
           v-if="hasPermission(applicationRouteList.permission)"
           v-model:value="model[field]"
           :treeData="treeData"
-          :replaceFields="{ title: 'name', key: 'absolute_path' }"
+          :fieldNames="{ title: 'name', key: 'absolute_path' }"
           :checkable="true"
           :checkStrictly="false"
           :autoExpandParent="true"
           ref="treeRef"
           title="分配应用权限"
+          :style="{ width: '300px' }"
         />
       </template>
     </BasicForm>
@@ -74,7 +76,7 @@
       }
 
       const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm(
-        getFormConfig()
+        getFormConfig(),
       );
 
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
@@ -135,7 +137,7 @@
                     if (actVal.method && actVal.method.length > 0) {
                       for (let methodKey in actVal.method) {
                         arrayApps.push(
-                          actVal.method[methodKey] + '_' + aVal.path + mVal.path + actVal.path
+                          actVal.method[methodKey] + '_' + aVal.path + mVal.path + actVal.path,
                         );
                       }
                     } else {
@@ -232,7 +234,7 @@
                               ].method.indexOf(method) == -1
                             ) {
                               mapApps[appPath].modules[modulePath].actions[actionPath].method.push(
-                                method
+                                method,
                               );
                             }
                           }
@@ -295,7 +297,7 @@
               ? values.applications.checked
               : values?.applications
               ? values?.applications
-              : []
+              : [],
           );
           let apiData = {
             name: values.name,

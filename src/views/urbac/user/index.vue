@@ -6,40 +6,42 @@
           >新增用户</a-button
         >
       </template>
-      <template #avatar="{ record }">
-        <Avatar v-if="record.avatar" :size="60" :src="record.avatar" />
-        <span v-else>无</span>
-      </template>
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              icon: 'clarity:note-edit-line',
-              tooltip: '编辑用户',
-              onClick: handleEdit.bind(null, record),
-              auth: userUpdate.premission,
-            },
-            {
-              icon: 'carbon:password',
-              tooltip: '重置密码',
-              popConfirm: {
-                title: '是否确认要重置此用户密码？',
-                confirm: handleResetPassword.bind(null, record),
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'avatar'">
+          <Avatar v-if="record.avatar" :size="60" :src="record.avatar" />
+          <span v-else>无</span>
+        </template>
+        <template v-if="column.key === 'action'">
+          <TableAction
+            :actions="[
+              {
+                icon: 'clarity:note-edit-line',
+                tooltip: '编辑用户',
+                onClick: handleEdit.bind(null, record),
+                auth: userUpdate.premission,
               },
-              auth: userResetPassword.premission,
-            },
-            {
-              icon: 'ant-design:delete-outlined',
-              color: 'error',
-              tooltip: '删除此用户',
-              popConfirm: {
-                title: '是否确认物理删除，删除后将无法恢复！',
-                confirm: handleDelete.bind(null, record),
+              {
+                icon: 'carbon:password',
+                tooltip: '重置密码',
+                popConfirm: {
+                  title: '是否确认要重置此用户密码？',
+                  confirm: handleResetPassword.bind(null, record),
+                },
+                auth: userResetPassword.premission,
               },
-              auth: userRealDelete.premission,
-            },
-          ]"
-        />
+              {
+                icon: 'ant-design:delete-outlined',
+                color: 'error',
+                tooltip: '删除此用户',
+                popConfirm: {
+                  title: '是否确认物理删除，删除后将无法恢复！',
+                  confirm: handleDelete.bind(null, record),
+                },
+                auth: userRealDelete.premission,
+              },
+            ]"
+          />
+        </template>
       </template>
     </BasicTable>
     <UserModal @register="registerModal" @success="handleSuccess" />
@@ -85,7 +87,7 @@
           width: 120,
           title: '操作',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          key: 'action',
         },
       });
 

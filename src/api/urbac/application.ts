@@ -35,18 +35,18 @@ export const applicationRouteList = {
 };
 
 export const applicationCreateVirtualApplication = {
-  premission: 'PUT_' + Api.APPLICATION_CREATE_VIRTUAL_APPLICATION,
+  premission: 'POST_' + Api.APPLICATION_CREATE_VIRTUAL_APPLICATION,
   api: (params) =>
-    defHttp.put<string>({
+    defHttp.post<string>({
       url: Api.APPLICATION_CREATE_VIRTUAL_APPLICATION,
       params,
     }),
 };
 
 export const applicationCreateCodeApplication = {
-  premission: 'PUT_' + Api.APPLICATION_CREATE_CODE_APPLICATION,
+  premission: 'POST_' + Api.APPLICATION_CREATE_CODE_APPLICATION,
   api: (params) =>
-    defHttp.put<string>({
+    defHttp.post<string>({
       url: Api.APPLICATION_CREATE_CODE_APPLICATION,
       params,
     }),

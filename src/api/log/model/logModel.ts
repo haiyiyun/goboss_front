@@ -128,7 +128,7 @@ export function getColumns(): BasicColumn[] {
     {
       title: '请求地址',
       dataIndex: 'path',
-      slots: { customRender: 'popover' },
+      key: 'popover',
       width: 100,
     },
     {
@@ -142,25 +142,25 @@ export function getColumns(): BasicColumn[] {
     {
       title: '请求头',
       dataIndex: 'request_header',
-      slots: { customRender: 'popoverJSON' },
+      key: 'popoverJSON',
       width: 80,
     },
     {
       title: '请求体',
       dataIndex: 'request_payload',
-      slots: { customRender: 'popoverJSON' },
+      key: 'popoverJSON',
       width: 80,
     },
     {
       title: '回复头',
       dataIndex: 'response_header',
-      slots: { customRender: 'popoverJSON' },
+      key: 'popoverJSON',
       width: 80,
     },
     {
       title: '回复体',
       dataIndex: 'response_data',
-      slots: { customRender: 'popoverJSONTEXT' },
+      key: 'popoverJSONTEXT',
       width: 80,
     },
     {

@@ -17,43 +17,45 @@
           新增虚拟应用
         </a-button>
       </template>
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              icon: 'mdi:database-refresh',
-              color: 'error',
-              tooltip: '重新读取应用信息',
-              popConfirm: {
-                title: '是否确认重新读取，重新读取将影响此应用的使用！',
-                confirm: handleReadCodeApplication.bind(null, record),
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction
+            :actions="[
+              {
+                icon: 'mdi:database-refresh',
+                color: 'error',
+                tooltip: '重新读取应用信息',
+                popConfirm: {
+                  title: '是否确认重新读取，重新读取将影响此应用的使用！',
+                  confirm: handleReadCodeApplication.bind(null, record),
+                },
+                auth: handleReadCodeApplication.premission,
+                ifShow: () => {
+                  return record.type == 'code' && record.level == 'app';
+                },
               },
-              auth: handleReadCodeApplication.premission,
-              ifShow: () => {
-                return record.type == 'code' && record.level == 'app';
+              {
+                icon: 'clarity:note-edit-line',
+                color: record.type == 'code' ? 'error' : 'warning',
+                tooltip: '编辑应用',
+                onClick: handleEditVirtual.bind(null, record),
+                ifShow: () => {
+                  return record.level != 'method';
+                },
               },
-            },
-            {
-              icon: 'clarity:note-edit-line',
-              color: record.type == 'code' ? 'error' : 'warning',
-              tooltip: '编辑应用',
-              onClick: handleEditVirtual.bind(null, record),
-              ifShow: () => {
-                return record.level != 'method';
+              {
+                icon: 'ant-design:delete-outlined',
+                color: 'error',
+                tooltip: '删除此应用',
+                popConfirm: {
+                  title: '是否确认删除，删除后将影响此应用的使用！',
+                  confirm: handleDelete.bind(null, record),
+                },
+                auth: applicationDelete.premission,
               },
-            },
-            {
-              icon: 'ant-design:delete-outlined',
-              color: 'error',
-              tooltip: '删除此应用',
-              popConfirm: {
-                title: '是否确认删除，删除后将影响此应用的使用！',
-                confirm: handleDelete.bind(null, record),
-              },
-              auth: applicationDelete.premission,
-            },
-          ]"
-        />
+            ]"
+          />
+        </template>
       </template>
     </BasicTable>
     <CodeModal @register="registerCodeModal" @success="handleCodeSuccess" />
@@ -111,7 +113,7 @@
           width: 100,
           title: '操作',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          key: 'action',
           fixed: undefined,
         },
       });

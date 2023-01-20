@@ -110,7 +110,7 @@ export function getColumns(): BasicColumn[] {
       title: 'UserAgent',
       dataIndex: 'sign_info.user_agent',
       width: 100,
-      slots: { customRender: 'popover' },
+      key: 'popover',
     },
     {
       title: '过期时间',

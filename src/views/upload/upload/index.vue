@@ -2,13 +2,15 @@
   <div class="p-4">
     <BasicTable @register="registerTable">
       <template #toolbar></template>
-      <template #popover="{ text }">
-        <Popover placement="top">
-          <template #content>
-            <pre>{{ text }}</pre>
-          </template>
-          <div class="popover-text">{{ text }}</div>
-        </Popover>
+      <template #bodyCell="{ column, text }">
+        <template v-if="column.key === 'popover'">
+          <Popover placement="top">
+            <template #content>
+              <pre>{{ text }}</pre>
+            </template>
+            <div class="popover-text">{{ text }}</div>
+          </Popover>
+        </template>
       </template>
     </BasicTable>
   </div>

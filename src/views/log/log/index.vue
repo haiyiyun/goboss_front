@@ -2,35 +2,37 @@
   <div class="p-4">
     <BasicTable @register="registerTable">
       <template #toolbar></template>
-      <template #popover="{ text }">
-        <Popover placement="top">
-          <template #content>
-            <pre>{{ text }}</pre>
-          </template>
-          <div class="popover-text">{{ text }}</div>
-        </Popover>
-      </template>
-      <template #popoverJSON="{ text }">
-        <Popover v-if="text" placement="right">
-          <template #content>
-            <div class="popover-box">
-              <pre>{{ JSON.stringify(text, null, 2) }}</pre>
-            </div>
-          </template>
-          <Icon icon="akar-icons:eye" />
-        </Popover>
-        <span v-else>无</span>
-      </template>
-      <template #popoverJSONTEXT="{ text }">
-        <Popover v-if="text" placement="right">
-          <template #content>
-            <div class="popover-box">
-              <pre>{{ fmtBody(text) }}</pre>
-            </div>
-          </template>
-          <Icon icon="akar-icons:eye" />
-        </Popover>
-        <span v-else>无</span>
+      <template #bodyCell="{ column, text }">
+        <template v-if="column.key === 'popover'">
+          <Popover placement="top">
+            <template #content>
+              <pre>{{ text }}</pre>
+            </template>
+            <div class="popover-text">{{ text }}</div>
+          </Popover>
+        </template>
+        <template v-else-if="column.key === 'popoverJSON'">
+          <Popover v-if="text" placement="right">
+            <template #content>
+              <div class="popover-box">
+                <pre>{{ JSON.stringify(text, null, 2) }}</pre>
+              </div>
+            </template>
+            <Icon icon="akar-icons:eye" />
+          </Popover>
+          <span v-else>无</span>
+        </template>
+        <template v-else-if="column.key === 'popoverJSONTEXT'">
+          <Popover v-if="text" placement="right">
+            <template #content>
+              <div class="popover-box">
+                <pre>{{ fmtBody(text) }}</pre>
+              </div>
+            </template>
+            <Icon icon="akar-icons:eye" />
+          </Popover>
+          <span v-else>无</span>
+        </template>
       </template>
     </BasicTable>
   </div>

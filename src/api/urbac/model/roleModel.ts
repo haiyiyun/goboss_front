@@ -231,6 +231,9 @@ export function getFormConfig(): Partial<FormProps> {
         label: '状态',
         required: true,
         component: 'RadioButtonGroup',
+        colProps: {
+          span: 12,
+        },
         defaultValue: 'false',
         componentProps: {
           options: [
@@ -246,6 +249,9 @@ export function getFormConfig(): Partial<FormProps> {
         required: false,
         ifShow: hasPermission(userList.premission),
         component: 'ApiSelect',
+        colProps: {
+          span: 12,
+        },
         componentProps: {
           api: userList.api,
           params: {

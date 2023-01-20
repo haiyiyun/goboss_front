@@ -316,7 +316,7 @@ export function getCreateCodeFormConfig(): Partial<FormProps> {
                   resolve();
                 } else {
                   reject(
-                    '只支持头部小写字母，尾部小写字母或数字的小写字母、数字、下划线_、横杠-的组合'
+                    '只支持头部小写字母，尾部小写字母或数字的小写字母、数字、下划线_、横杠-的组合',
                   );
                 }
               });
@@ -395,7 +395,7 @@ export const formVirtualSchema: FormSchema[] = [
               resolve();
             } else {
               reject(
-                '只支持头部小写字母，尾部小写字母或数字的小写字母、数字、下划线_、横杠-的组合'
+                '只支持头部小写字母，尾部小写字母或数字的小写字母、数字、下划线_、横杠-的组合',
               );
             }
           });
@@ -409,8 +409,8 @@ export const formVirtualSchema: FormSchema[] = [
     component: 'TreeSelect',
     defaultValue: '',
     componentProps: {
-      replaceFields: {
-        title: 'name',
+      fieldNames: {
+        label: 'name',
         key: 'absolute_path',
         value: 'absolute_path',
       },

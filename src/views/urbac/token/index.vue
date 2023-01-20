@@ -2,31 +2,33 @@
   <div class="p-4">
     <BasicTable @register="registerTable">
       <template #toolbar></template>
-      <template #popover="{ text }">
-        <Popover placement="top">
-          <template #content>
-            <pre>{{ text }}</pre>
-          </template>
-          <div class="popover-text">{{ text }}</div>
-        </Popover>
-      </template>
-      <template #action="{ record }">
-        <TableAction
-          v-if="record.token != token"
-          stopButtonPropagation
-          :actions="[
-            {
-              label: '踢出',
-              icon: 'ic:outline-delete-outline',
-              popConfirm: {
-                title: '是否踢出？',
-                confirm: handleDelete.bind(null, record),
+      <template #bodyCell="{ column, record, text }">
+        <template v-if="column.key === 'popover'">
+          <Popover placement="top">
+            <template #content>
+              <pre>{{ text }}</pre>
+            </template>
+            <div class="popover-text">{{ text }}</div>
+          </Popover>
+        </template>
+        <template v-if="column.key === 'action'">
+          <TableAction
+            v-if="record.token != token"
+            stopButtonPropagation
+            :actions="[
+              {
+                label: '踢出',
+                icon: 'ic:outline-delete-outline',
+                popConfirm: {
+                  title: '是否踢出？',
+                  confirm: handleDelete.bind(null, record),
+                },
+                auth: tokenDelete.premission,
               },
-              auth: tokenDelete.premission,
-            },
-          ]"
-        />
-        <Tag v-else color="green">当前用户</Tag>
+            ]"
+          />
+          <Tag v-else color="green">当前用户</Tag>
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -65,7 +67,7 @@
         actionColumn: {
           width: 160,
           title: '操作',
-          slots: { customRender: 'action' },
+          key: 'action',
         },
       });
 

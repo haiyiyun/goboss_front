@@ -106,7 +106,7 @@ export function getColumns(): BasicColumn[] {
       title: '头像',
       dataIndex: 'avatar',
       width: 100,
-      slots: { customRender: 'avatar' },
+      key: 'avatar',
     },
     {
       title: '邮箱',

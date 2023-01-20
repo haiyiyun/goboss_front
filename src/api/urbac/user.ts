@@ -24,9 +24,9 @@ export const userList = {
 };
 
 export const userCreate = {
-  premission: 'PUT_' + Api.USER_CREATE,
+  premission: 'POST_' + Api.USER_CREATE,
   api: (params) =>
-    defHttp.put<string>({
+    defHttp.post<string>({
       url: Api.USER_CREATE,
       params,
     }),

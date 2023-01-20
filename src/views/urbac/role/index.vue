@@ -6,27 +6,29 @@
           新增角色
         </a-button>
       </template>
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              icon: 'clarity:note-edit-line',
-              tooltip: '编辑角色',
-              onClick: handleEdit.bind(null, record),
-              auth: roleUpdate.premission,
-            },
-            {
-              icon: 'ant-design:delete-outlined',
-              color: 'error',
-              tooltip: '删除此角色',
-              popConfirm: {
-                title: '是否确认物理删除，删除后将无法恢复！',
-                confirm: handleDelete.bind(null, record),
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction
+            :actions="[
+              {
+                icon: 'clarity:note-edit-line',
+                tooltip: '编辑角色',
+                onClick: handleEdit.bind(null, record),
+                auth: roleUpdate.premission,
               },
-              auth: roleRealDelete.premission,
-            },
-          ]"
-        />
+              {
+                icon: 'ant-design:delete-outlined',
+                color: 'error',
+                tooltip: '删除此角色',
+                popConfirm: {
+                  title: '是否确认物理删除，删除后将无法恢复！',
+                  confirm: handleDelete.bind(null, record),
+                },
+                auth: roleRealDelete.premission,
+              },
+            ]"
+          />
+        </template>
       </template>
     </BasicTable>
     <RoleDrawer @register="registerDrawer" @success="handleSuccess" />
@@ -63,7 +65,7 @@
           width: 80,
           title: '操作',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          key: 'action',
           fixed: undefined,
         },
       });
