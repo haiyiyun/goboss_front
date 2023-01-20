@@ -2,13 +2,13 @@
   <div class="p-4">
     <BasicTable @register="registerTable">
       <template #toolbar></template>
-      <template #bodyCell="{ column, record, text }">
-        <template v-if="column.key === 'popover'">
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'popoverSIUA'">
           <Popover placement="top">
             <template #content>
-              <pre>{{ text }}</pre>
+              <pre>{{ record.sign_info.user_agent }}</pre>
             </template>
-            <div class="popover-text">{{ text }}</div>
+            <div class="popover-text">{{ record.sign_info.user_agent }}</div>
           </Popover>
         </template>
         <template v-if="column.key === 'action'">

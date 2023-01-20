@@ -105,12 +105,13 @@ export function getColumns(): BasicColumn[] {
       title: 'IP',
       dataIndex: 'sign_info.ip',
       width: 100,
+      customRender: ({ record }) => record.sign_info.ip,
     },
     {
       title: 'UserAgent',
       dataIndex: 'sign_info.user_agent',
       width: 100,
-      key: 'popover',
+      key: 'popoverSIUA',
     },
     {
       title: '过期时间',
